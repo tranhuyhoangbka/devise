@@ -278,6 +278,8 @@ module Devise
           # Using for only Manager Implement for admin and user later
           if required_attributes.include?(:email) && self.name == "Manager"
             required_attributes.push :deleted_at
+          else
+            required_attributes.delete_if{|att| att == :deleted_at}
           end
           attributes = if attributes.respond_to? :permit!
             attributes.slice(*required_attributes).permit!.to_h.with_indifferent_access
